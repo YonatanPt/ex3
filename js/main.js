@@ -1,28 +1,28 @@
 'use strict';
 
 document.getElementById("mod").addEventListener('click', function(e) {
-    e.preventDefault(); // מונע רענון של הדף
+    e.preventDefault();
 
-    // איפוס הודעת השגיאה בכל לחיצה
+    // איפוס הודעת שגיאה
     document.getElementById("taskNameError").textContent = "";
 
     if (validateForm()) {
-        // שלב 2: איסוף המידע לאובייקט (במקום סתם להעלים את הטופס)
+        // 1. איסוף המידע
         const taskData = {
             name: document.getElementById("TaskName").value,
-            category: document.getElementById("Categories").value,
-            // משיכת הערך מהרדיו שנבחר (אם נבחר)
+            category: document.getElementById("Categories").options[document.getElementById("Categories").selectedIndex].text, // לוקח את הטקסט ולא את ה-value
             priority: document.querySelector('input[name="level"]:checked')?.value || "Normal",
             date: document.getElementById("datetime-local").value,
             description: document.getElementById("Description").value
         };
 
-        // כרגע נדפיס לקונסול כדי לראות שזה עובד (בשלב הבא תבנו פונקציה שמוסיפה ל-HTML)
-        console.log("Task Created successfully:", taskData);
+        // 2. הוספת המשימה לתצוגה (קריאה לפונקציה החדשה)
+        addTaskToDOM(taskData);
 
-        // אופציונלי: כאן אפשר לנקות את הטופס או לסגור אותו
-        // document.getElementById("input_form_container").style.display = "none";
-        alert("המשימה נקלטה! בדוק את הקונסול (F12)");
+        // 3. ניקוי הטופס להזנה הבאה
+        document.getElementById("form").reset();
+
+        console.log("Task added:", taskData);
     }
 });
 
@@ -30,12 +30,33 @@ function validateForm() {
     let isValid = true;
     const taskNameInput = document.getElementById("TaskName");
 
-    // בדיקה אם השדה ריק
     if (taskNameInput.value.trim() === "") {
-        // שינוי 1: הצגת השגיאה בתוך ה-SPAN שיצרנו
         document.getElementById("taskNameError").textContent = "שם משימה הוא שדה חובה!";
         isValid = false;
     }
-
     return isValid;
+}
+
+// --- פונקציה חדשה שמקבלת אובייקט ויוצרת HTML ---
+function addTaskToDOM(task) {
+    const list = document.getElementById("task-list");
+
+    // יצירת אלמנט LI חדש
+    const li = document.createElement("li");
+
+    // עיצוב בסיסי למשימה (אפשר לשפר ב-CSS אחר כך)
+    li.style.borderBottom = "1px solid #ccc";
+    li.style.padding = "10px";
+
+    // הכנסת התוכן
+    li.innerHTML = `
+        <strong>${task.name}</strong> 
+        <span style="color: blue;">[${task.category}]</span>
+        <br>
+        <small>Priority: ${task.priority} | Date: ${task.date}</small>
+        <p>${task.description}</p>
+    `;
+
+    // הוספה לרשימה בדף
+    list.appendChild(li);
 }
