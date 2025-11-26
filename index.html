@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>My task list</title>
+
+    <style>
+        .centered-heading {
+            /* 1. מרכוז הטקסט בתוך הכותרת */
+            text-align: center;
+
+            /* 2. הגדרת צבע הרקע */
+            background-color: #aae0fa; /* כחול בהיר */
+
+            /* 3. מרווח פנימי */
+            padding: 10px;
+
+            /* 4. הגבלת הרוחב למרכוז האלמנט */
+            /*width: fit-content;*/
+            margin: 20px auto; /* מרכוז האלמנט בדף */
+
+            /* עיצוב נוסף: */
+            border-radius: 8px;
+            color: #312c2c;
+        }
+    </style>
+</head>
+<body>
+
+<h1  class="centered-heading">My task list</h1>
+<h2  class="centered-heading">This simple app allows you to add tasks with categories and due dates. You can also filter and sort tasks</h2>
+
+
+<div class = "input_form" id="input_form_container">
+<form id="form">
+<!--Task name-->
+<label for="TaskName">Task name</label><br>
+<textarea name="textarea" id="TaskName"></textarea><br><br>
+
+<!--category-->
+<label for="Categories">category</label><br>
+<select id="Categories">
+    <option value="0">Work</option>
+    <option value="1">Sport</option>
+    <option value="2">Personal</option>
+    <option value="3">Shopping</option>
+</select><br><br>
+
+    <!--Priority-->
+    <label>Priority</label><br>
+    <input type="radio" name="level" value="Low"><label>Low</label>
+    <input type="radio" name="level" value="Medium"><label>Medium</label>
+    <input type="radio" name="level" value="High"><label>High</label><br><br>
+
+<!--Date-->
+    <label>Due Date and Time</label><br>
+    <input type="datetime-local" name="datetime-local" id="datetime-local">
+    <br><br>
+
+<!--Description-->
+<label for="Description"> Description</label><br>
+<textarea name="textarea" id="Description"></textarea><br><br>
+
+</form>
+</div>
+
+<button id="mod">Confirm</button>
+
+
+ <script src="js/main.js"></script>
+</body>
+</html>
+
